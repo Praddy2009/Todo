@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -67,6 +67,12 @@ def update(id):
          return 'Error Updating'
    else:
       return render_template("update.html",task=task)
+
+@app.route('/post',methods=['POST'])
+def posting():
+   input_json =request.get_json(force=True)
+   dictToReturn={'stext':input_json['text']}
+   return jsonify(dictToReturn)
 
 
 if __name__ == "__main__":
